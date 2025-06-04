@@ -45,7 +45,7 @@ class Carousel {
         `<a href="${item.link}">
             <img src="img/${item.imagem}" alt="${ item.titulo}" style="width:100%;  max-height:546px; object-fit: cover; ">
         </a>`;
-        // atualiza a div do título com o nome do item
+        // Atualiza a div do título com o nome do item
         titleDiv.innerHTML = `<h2 style="text-align: center; margin: 120px; font-size:20px; color: #1351d8 ">${item.titulo}</h2>`;
         // Incrementa a sequência, garantindo que retorne ao início ao atingir o útimo item
         Carousel._sequence = (Carousel._sequence + 1) % Carousel._size;

@@ -2,7 +2,12 @@
 //class contato
 
 class contato {
-    
+    constructor(nome, email, telefone, tipoContato) { 
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.tipoContato = tipoContato; 
+    }
 }
 
 function Post(form) {
