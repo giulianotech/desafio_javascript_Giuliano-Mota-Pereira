@@ -17,11 +17,11 @@ class Car {
     }
 
     exibirInfo() {
-        console.log(`Nome: ${this.nome}, Preço: ${this.preco}, Motor: ${this.motor}, Potência: ${this.potencia}`);
+       console.log(`nome:${this.nome}, Preço:${this.preco}, Motor:${this.motor}, Potência:${this.potencia}`);
     }
 } 
 
-// Instâncias dos carros disponíveis
+// Instâncias dos carros que estão disponíveis
 let carroXL = new Car(
     "Ranger XL", 
     "R$ 165.055,00", 
@@ -64,24 +64,22 @@ let carroStorm = new Car(
     "img/storm.jpg"
 );
 
-// Array de todos os carros disponíveis (útil se você quiser listá-los ou gerá-los dinamicamente no HTML)
+// Array de todos os carros disponíveis 
 const availableCars = [carroXL, carroXLS, carroStorm];
 
-// Array armazena os carros selecionados e faz a comparação.
-// incializa vazio e é manipulado através da função SetCarToCompare.
+
 let carsToCompare = []; 
 
-// mostra as informações dos carros no console 
+// Exibe as informações dos carros no console 
 carroXL.exibirInfo();
 carroXLS.exibirInfo();
 carroStorm.exibirInfo();
 
 
 
-// Função para encontrar a posição do carro no array pelo nome
-// Retorna o índice do carro se encontrado, ou -1 se não encontrado.
+
 function getCarPositionInArray(arr, carClass) {
-    for(let i = 0; i < arr.length; i++){
+   for(let i = 0; i < arr.length; i++){
         if(arr[i].nome === carClass.nome) {
             return i;
         }
@@ -89,46 +87,42 @@ function getCarPositionInArray(arr, carClass) {
     return -1;
 }
 
-// manitora a adição/remoção de carros no array de comparação 
-// 'el' é o elemento HTML (checkbox) que inicializou a mudança
-// 'carClass' é o objeto Car associado nesse checkbox
+
 function SetCarToCompare(el, carClass) {
-    // confirma que o argumento é realmente um tipo Car
-    if(!(carClass instanceof Car)){ 
-        throw new Error("O segundo argumento precisa ser uma instância da classe Car.");
-    }
-    // A CHAVE QUE ESTAVA AQUI FOI REMOVIDA
     
-    // Encontra a posição do carro no array de carros selecionados
+    if(!(carClass instanceof Car)){ 
+        throw new Error("O segundo argumento deve ser uma instância da classe Car.");
+    }
+   
+    
+    
     const position = getCarPositionInArray(carsToCompare, carClass);
 
-    if(el.checked){ // Se o checkbox foi marcado (tentando adicionar o carro)
-        // Impede a seleção caso houver 2 carros selecionados na lista de comparação
+    if(el.checked){ 
         if(carsToCompare.length >= 2){
-            alert("Você pode comparar no máximo 2 carros. Desmarque um para selecionar outro.");
-            el.checked = false; // Desmarca o checkbox para visualmente mostrar que não foi selecionado
-            return; // Sai da função para não adicionar o carro       
-        } // Esta chave fecha o if(carsToCompare.length >= 2)
+            alert("É permitido comparar no máximo 2 carros. ");
+            el.checked = false; 
+            return;    
+        } 
         
-        // Acrescenta o carro ao array caso ainda não estiver lá
+        
         if(position === -1){
             carsToCompare.push(carClass);
             console.log(`Carro ${carClass.nome} adicionado para comparação.`);
         }
-    } else { // Se o checkbox foi desmarcado (tentando remover o carro)
-        // Remove o carro do array caso ele estiver lá
+    } else { 
         if(position !== -1){
-            carsToCompare.splice(position, 1); // Remove um elemento na posição 'position'
+            carsToCompare.splice(position, 1); 
             console.log(`Carro ${carClass.nome} removido da comparação.`);
         }
     }
-    console.log("Carros para comparar atualmente:", carsToCompare.map(car => car.nome));
-} // ESTA É A CHAVE CORRETA QUE FECHA A FUNÇÃO SetCarToCompare
+    console.log("Carros para comparação atuais:", carsToCompare.map(car => car.nome));
+} 
 
-// Exibe a tabela de comparação, com validações da quantia de carros
+// Mostra a tabela de comparação, com validações da quantidade de carros
 function ShowCompare() {
     if (!Array.isArray(carsToCompare) || carsToCompare.length < 2) {
-        alert("Selecione pelo menos dois carros para comparar.");
+        alert("Selecione ao menos dois carros para comparar.");
         return;
     }
 
@@ -193,21 +187,20 @@ function ShowCompare() {
 }
 
 
-    // Se a validação passou (exatamente 2 carros selecionados), atualiza e mostra a tabela
+   
     UpdateCompareTable(); 
-    document.getElementById("compare").style.display = "block"; // Torna a div de comparação visível
+    document.getElementById("compare").style.display = "block"; 
 
-
-// Esconde a tabela de comparação
-function HideCompare(){
-    document.getElementById('compare').style.display = 'none';
+    
+    function HideCompare(){
+        document.getElementById('compare').style.display = 'none';
 }
 
-   // Limpa o cabeçalho e o corpo da tabela para recriar
-    tableHeader.innerHTML = '<th>Característica</th>'; // Mantém o cabeçalho fixo 'Característica'
+   
+    tableHeader.innerHTML = '<th>Característica</th>'; 
     tableBody.innerHTML = '';
 
-    // Adiciona os nomes dos carros selecionados ao cabeçalho da tabela
+    
     carsToCompare.forEach(car => {
         const th = document.createElement('th');
         th.textContent = car.nome;
@@ -215,51 +208,51 @@ function HideCompare(){
     });
 
     // --- Seção para a Imagem do Carro ---
-    // Cria uma nova linha para as imagens dos carros
+    
     const imageRow = document.createElement('tr');
     const imageLabelTd = document.createElement('td');
-    imageLabelTd.textContent = 'Imagem'; // Label para a linha de imagens
+    imageLabelTd.textContent = 'Imagem'; 
     imageRow.appendChild(imageLabelTd);
 
     carsToCompare.forEach(car => {
         const tdImage = document.createElement('td');
         const imgElement = document.createElement('img');
-        imgElement.src = car.image; // Define o caminho da imagem
-        imgElement.alt = `Imagem do ${car.nome}`; // Texto alternativo para acessibilidade
-        imgElement.style.width = '150px'; // Define a largura da imagem na tabela
-        imgElement.style.height = 'auto'; // Mantém a proporção da imagem
+        imgElement.src = car.image; 
+        imgElement.alt = `Imagem do ${car.nome}`; 
+        imgElement.style.width = '150px'; 
+        imgElement.style.height = 'auto'; 
         tdImage.appendChild(imgElement);
         imageRow.appendChild(tdImage);
     });
-    tableBody.appendChild(imageRow); // Adiciona a linha de imagens ao corpo da tabela
-    // --- Fim da Seção para a Imagem ---
+    tableBody.appendChild(imageRow); 
 
-    // Define quais características serão exibidas na tabela e seus rótulos
-    const features = [
-        { key: 'preco', label: 'Preço' },
-        { key: 'alturaCacamba', label: 'Altura da Caçamba' },
-        { key: 'alturaVeiculo', label: 'Altura do Veículo' },
-        { key: 'alturaSolo', label: 'Altura do Solo' },
-        { key: 'capacidadeCarga', label: 'Capacidade de Carga' },
-        { key: 'motor', label: 'Motor' },
-        { key: 'potencia', label: 'Potência' },
+    
+    const toFeatures = [
+        { Key: 'preco', label: 'Preço'},
+        { Key: 'alturaCacamba', label: 'Altura da Caçamba'},
+        { Key: 'alturaVeiculo', label: 'Altura do Veículo'},
+        { Key: 'alturaSolo', label: 'Altura do Solo'},
+        { Key: 'capacidadeCarga', label: 'Capacidade de Carga'},
+        { Key: 'motor', label: 'Motor'},
+        { Key: 'potencia', label: 'Potência'},
         { key: 'volumeCacamba', label: 'Volume da Caçamba' },
         { key: 'roda', label: 'Roda' },
-        // Adicione outras propriedades da classe Car aqui se quiser que apareçam na comparação
-    ];
 
-    // Preenche o corpo da tabela com os dados das características dos carros
-    features.forEach(feature => {
+        
+     ];
+
+    
+    toFeatures.forEach(feature => {
         const tr = document.createElement('tr');
         const tdLabel = document.createElement('td');
-        tdLabel.textContent = feature.label; // Rótulo da característica (ex: "Preço")
+        tdLabel.textContent = feature.label; 
         tr.appendChild(tdLabel);
 
         carsToCompare.forEach(car => {
             const tdValue = document.createElement('td');
            if (feature.key === 'preco') {
     const precoStr = car[feature.key];
-    // Remove "R$", pontos de milhar e troca vírgula por ponto
+    
     const precoNumerico = parseFloat(precoStr
         .replace("R$", "")
         .replace(/\./g, "")
@@ -279,5 +272,5 @@ function HideCompare(){
            
             tr.appendChild(tdValue);
         });
-        tableBody.appendChild(tr); // Adiciona a linha de característica ao corpo da tabela
+        tableBody.appendChild(tr); 
     });
