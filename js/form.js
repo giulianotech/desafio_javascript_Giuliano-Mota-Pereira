@@ -1,7 +1,7 @@
 
 //class contato
 
-class contato {
+class Contato {
     constructor(nome, email, telefone, tipoContato) { 
         this.nome = nome;
         this.email = email;
@@ -10,8 +10,17 @@ class contato {
     }
 }
 
+function mostrarErro (elementoErro, mensagem) {
+    elementoErro.textContent = mensagem;
+}
+
+function limparErro (elementoErro) {
+    elementoErro.textContent
+}
+
 function validForm(form) {
     let isValid = true;
+    event.preventDefault(); // Para evitar que o formulário seja enviado
 
     // Validação do campo Nome
     const nomeInput = document.getElementById("nomeid");
@@ -50,7 +59,7 @@ function validForm(form) {
         telError.textContent = "Por favor, preencha o seu telefone.";
         isValid = false;
     } else if (!telRegex.test(telInput.value)) {
-        telefoneError.textContent = "Por favor, insira um número de telefone válido (somente números, 10 ou 11 dígitos).";
+        telError.textContent = "Por favor, insira um número de telefone válido (somente números, 10 ou 11 dígitos).";
         isValid = false;
     } else {
         telError.textContent = "";
@@ -67,7 +76,7 @@ function validForm(form) {
     }
 
     if (isValid) {
-        let data = new contato(
+        let data = new Contato(
             nomeInput.value,
             emailInput.value,
             telefoneInput.value,
@@ -83,7 +92,12 @@ function validForm(form) {
 
 function Enviar(nome) {
 
-    var nome = document.getElementById("nomeid");
-
-    alert('Obrigado sr(a) ' + nome + ' os seus dados foram encaminhados com sucesso');
+    alert(`Obrigado sr(a)  ${nome} ' Os dados foram encaminhados com sucesso `);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form");
+    if (form) {
+        form.addEventListener("submit", validForm);
+    }
+});
