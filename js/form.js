@@ -15,7 +15,7 @@ function mostrarErro (elementoErro, mensagem) {
 }
 
 function limparErro (elementoErro) {
-    elementoErro.textContent
+    elementoErro.textContent = "";
 }
 
 function validForm(form) {
@@ -79,7 +79,7 @@ function validForm(form) {
         let data = new Contato(
             nomeInput.value,
             emailInput.value,
-            telefoneInput.value,
+            telInput.value,
             contatoSelect.value
         );
         console.log(data); 
@@ -92,7 +92,7 @@ function validForm(form) {
 
 function Enviar(nome) {
 
-    alert(`Obrigado sr(a)  ${nome} ' Os dados foram encaminhados com sucesso `);
+    alert(`Obrigado sr(a)  ${nome}  Os dados foram encaminhados com sucesso `);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
