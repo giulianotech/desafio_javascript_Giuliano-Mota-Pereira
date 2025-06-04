@@ -2,11 +2,12 @@
 //class contato
 
 class Contato {
-    constructor(nome, email, telefone, tipoContato) { 
+    constructor(nome, email, telefone, tipoContato, mensagem) { 
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.tipoContato = tipoContato; 
+        this.mensagem = mensagem;
     }
 }
 
@@ -25,7 +26,7 @@ function validForm(form) {
     // Validação do campo Nome
     const nomeInput = document.getElementById("nomeid");
     const nomeError = document.getElementById("nomeError");
-    // Regex para aceitar apenas letras (maiúsculas e minúsculas), espaços e caracteres acentuados comuns
+    // Aceitar apenas letras (maiúsculas e minúsculas), espaços e caracteres acentuados comuns
     const nomeRegex = /^[A-Za-z\u00C0-\u017F\s]+$/; 
     if (nomeInput.value.trim() === "") {
         nomeError.textContent = "Por favor, preencha o seu nome.";
@@ -92,7 +93,7 @@ function validForm(form) {
 
 function Enviar(nome) {
 
-    alert(`Obrigado sr(a)  ${nome}  Os dados foram encaminhados com sucesso `);
+    alert(`Obrigado sr(a) ${nome} Os dados foram encaminhados com sucesso `);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

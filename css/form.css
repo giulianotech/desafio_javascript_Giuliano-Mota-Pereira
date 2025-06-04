@@ -49,6 +49,14 @@ button {
     float: right;
 }
 
+button:hover {
+    background-color: #0056b3; 
+    width: 210px; 
+    height: 45px; 
+    transform: scale(1.05); 
+}
+
+
 .titulo {
     margin-left: 8px;
 }
